@@ -1,7 +1,9 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
 import { createBook } from "../api/bookApi";
+import { Box, TextField, Button } from "@mui/material";
 
+// eslint-disable-next-line react/prop-types
 const BookForm = ({ onBookAdded }) => {
   const [book, setBook] = useState({
     title: "",
@@ -27,49 +29,60 @@ const BookForm = ({ onBookAdded }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="title"
-        value={book.title}
-        onChange={handleChange}
-        placeholder="Title"
-        required
-      />
-      <input
-        type="text"
-        name="author"
-        value={book.author}
-        onChange={handleChange}
-        placeholder="Author"
-        required
-      />
-      <input
-        type="number"
-        name="pages"
-        value={book.pages}
-        onChange={handleChange}
-        placeholder="Pages"
-        required
-      />
-      <input
-        type="number"
-        name="publishedYear"
-        value={book.publishedYear}
-        onChange={handleChange}
-        placeholder="Published Year"
-        required
-      />
-      <input
-        type="text"
-        name="isbn"
-        value={book.isbn}
-        onChange={handleChange}
-        placeholder="ISBN"
-        required
-      />
-      <button type="submit">Add Book</button>
-    </form>
+    <Box sx={{ padding: 2, margin: 2 }}>
+      <form onSubmit={handleSubmit}>
+        <TextField
+          label="Title"
+          name="title"
+          value={book.title}
+          onChange={handleChange}
+          required
+          fullWidth
+          margin="normal"
+        />
+        <TextField
+          label="Author"
+          name="author"
+          value={book.author}
+          onChange={handleChange}
+          required
+          fullWidth
+          margin="normal"
+        />
+        <TextField
+          label="Pages"
+          name="pages"
+          value={book.pages}
+          onChange={handleChange}
+          required
+          fullWidth
+          margin="normal"
+          type="number"
+        />
+        <TextField
+          label="Published Year"
+          name="publishedYear"
+          value={book.publishedYear}
+          onChange={handleChange}
+          required
+          fullWidth
+          margin="normal"
+          type="number"
+        />
+        <TextField
+          label="ISBN"
+          name="isbn"
+          value={book.isbn}
+          onChange={handleChange}
+          required
+          fullWidth
+          margin="normal"
+        />
+        <Button variant="contained" type="submit" fullWidth margin="normal">
+          Add Book
+        </Button>
+      </form>
+    </Box>
   );
 };
 

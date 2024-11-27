@@ -1,6 +1,16 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from "react";
 import { getBooks, deleteBook } from "../api/bookApi";
+import {
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Button,
+  Pagination,
+} from "@mui/material";
 
 const BookList = () => {
   const [books, setBooks] = useState([]);
@@ -32,52 +42,56 @@ const BookList = () => {
     }
   };
 
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value - 1);
   };
 
   return (
-    <div>
+    <Box sx={{ padding: 2, margin: 2 }}>
       <h2>Book List</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Book ID</th>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Pages</th>
-            <th>Published Year</th>
-            <th>ISBN</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
+      <Table sx={{ minWidth: 650 }}>
+        <TableHead>
+          <TableRow>
+            <TableCell>Book ID</TableCell>
+            <TableCell align="right">Title</TableCell>
+            <TableCell align="right">Author</TableCell>
+            <TableCell align="right">Pages</TableCell>
+            <TableCell align="right">Published Year</TableCell>
+            <TableCell align="right">ISBN</TableCell>
+            <TableCell align="right">Actions</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
           {books.map((book) => (
-            <tr key={book.bookId}>
-              <td>{book.bookId}</td>
-              <td>{book.title}</td>
-              <td>{book.author}</td>
-              <td>{book.pages}</td>
-              <td>{book.publishedYear}</td>
-              <td>{book.isbn}</td>
-              <td>
-                <button onClick={() => handleDelete(book.bookId)}>
+            <TableRow key={book.bookId}>
+              <TableCell component="th" scope="row">
+                {book.bookId}
+              </TableCell>
+              <TableCell align="right">{book.title}</TableCell>
+              <TableCell align="right">{book.author}</TableCell>
+              <TableCell align="right">{book.pages}</TableCell>
+              <TableCell align="right">{book.publishedYear}</TableCell>
+              <TableCell align="right">{book.isbn}</TableCell>
+              <TableCell align="right">
+                <Button
+                  variant="contained"
+                  color="error"
+                  onClick={() => handleDelete(book.bookId)}
+                >
                   Delete
-                </button>
-              </td>
-            </tr>
+                </Button>
+              </TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
-      <div>
-        {Array.from({ length: totalPages }, (_, i) => i).map((pageNumber) => (
-          <button key={pageNumber} onClick={() => handlePageChange(pageNumber)}>
-            {pageNumber + 1}
-          </button>
-        ))}
-      </div>
+        </TableBody>
+      </Table>
+      <Pagination
+        count={totalPages}
+        page={currentPage + 1}
+        onChange={handlePageChange}
+      />
       <div>Total Rows: {totalElements}</div>
-    </div>
+    </Box>
   );
 };
 
