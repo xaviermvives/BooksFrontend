@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/api/books';
+//const API_URL = 'http://localhost:8080/api/books';
+const API_URL = "https://books-backend-icx2.onrender.com/api/books";
 
 export const getBooks = (page = 0, size = 10) => {
   return axios.get(`${API_URL}?page=${page}&size=${size}`);
